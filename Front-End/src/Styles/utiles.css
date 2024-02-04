@@ -1,0 +1,116 @@
+.btn-cstm1 {
+  border: 2px solid var(--primary-color);
+  padding-block: .4rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: #fff;
+  letter-spacing: 1px;
+  font-weight: 500;
+  background-color: var(--primary-color);
+  transition: all .3s ease-in-out;
+}
+.my-order-btn{
+  border: 1px solid var(--interview-2);
+  padding-block: .4rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: var(--interview);
+  letter-spacing: 1px;
+  font-weight: 300;
+  padding-inline: 1rem;
+  width: 45%;
+  background-color: var(--interview-2);
+  transition: all .3s ease-in-out;
+}
+.my-order-btn:hover{
+  border-color: var(--interview);  
+}
+th,td{
+  line-height: 2;
+}
+.submit-bt{
+  border: 1px solid var(--alert-check-success);
+  padding-block: .4rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: var(--alert-check-success);
+  letter-spacing: 1px;
+  font-weight: 300;
+  padding-inline: 1rem;
+  width: 45%;
+  background-color: var(--success);
+  transition: all .3s ease-in-out;
+}
+.submit-bt:hover{
+  opacity: .7;
+}
+.log-btn{
+  border: 2px solid var(--success);
+  padding: .4rem .8rem;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: var(--alert-check-success);
+  letter-spacing: 1px;
+  font-weight: 500;
+  background-color: var(--success);
+  transition: all .3s ease-in-out;
+}
+.counter{
+  border: 2px solid var(--primary-color-2);
+  border-radius: 5px;
+  background-color: var(--primary-color-2);
+  padding: .4rem 1.5rem;
+  color: #fff;
+  margin-inline: .7rem;
+  font-size: 1.3rem;
+}
+.counter-btns{
+  border-radius: 5px;
+  border: none;
+  background-color: var(--primary-color);
+  padding: .5rem;
+  color: #fff;
+  font-size: 1.1rem;
+}
+.log-btn:hover{
+  opacity: .7;
+}
+.btn-cstm1:hover {
+  color: var(--primary-color);
+  background-color: var(--navbar-color);
+}
+
+.sidebar-links {
+  margin-block: 3rem;
+}
+
+.sidebar-link {
+  display: flex;
+  background-color: transparent;
+  width: 100%;
+  font-size: 1.26rem;
+  text-decoration: none;
+  line-height: 3;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding-left: 1rem;
+  transition: all .3s ease-in-out;
+  color: var(--text-color);
+}
+
+.sidebar-link:hover {
+  background-color: var(--primary-color-2);
+  padding-left: 1.5rem;
+}
+.my-dd{
+  padding: .2rem .5rem;
+  width: 100%;
+  border: 2px solid var(--primary-color-2);
+  border-radius: 5px;
+  transition: all .2s ease-in-out;
+}

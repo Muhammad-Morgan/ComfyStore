@@ -1,0 +1,55 @@
+.my-alert {
+    top: 2rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 350px;
+    margin-inline: auto;
+    padding: 1rem;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3;
+  }
+  
+  .cls-btn {
+    background-color: transparent;
+    border: none;
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .show-alert {
+    animation: fadeIn 1s ease-in;
+    opacity: 1;
+    visibility: visible;
+    z-index: 3;
+  }
+  
+  .hide-alert {
+    animation: fadeOut .1s ease-out;
+    opacity: 0;
+    z-index: -1;
+  }
+  
