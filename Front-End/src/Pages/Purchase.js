@@ -26,7 +26,7 @@ const Purchase = () => {
             })
         }
         if(cash === true && card === false) {
-            axios.delete(`http://localhost:5000/clearcart?myID=${userInfo.id}`).then(() => {
+            axios.delete(`https://server-store-beta.vercel.app/clearcart?myID=${userInfo.id}`).then(() => {
                 showAlert({
                     msg: 'Cash payment is successfull !',
                     type: 'success'
@@ -35,7 +35,7 @@ const Purchase = () => {
             }).catch(err => console.log(err))
         }
         if(card === true && cash === false) {
-            axios.delete(`http://localhost:5000/clearcart?myID=${userInfo.id}`).then(() => {
+            axios.delete(`https://server-store-beta.vercel.app/clearcart?myID=${userInfo.id}`).then(() => {
                 showAlert({
                     msg: 'Card payment is successfull !',
                     type: 'success'
@@ -46,7 +46,7 @@ const Purchase = () => {
     }
     useEffect(() => {
         var localToken = localStorage.getItem('localToken') || ''
-        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')

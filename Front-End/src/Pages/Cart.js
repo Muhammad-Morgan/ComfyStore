@@ -36,7 +36,7 @@ const Cart = () => {
     const handleClick = (e) => {
         e.preventDefault()
         var localToken = localStorage.getItem('localToken') || ''
-        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -47,16 +47,16 @@ const Cart = () => {
                 name,
                 id: myID
             })
-            axios.get(`http://localhost:5000/getmyitems?myID=${myID}`).then(({ data }) => {
+            axios.get(`https://server-store-beta.vercel.app/getmyitems?myID=${myID}`).then(({ data }) => {
                 setCartItems(data)
             }).catch(err => console.log(err))
         })
     }
     const handleDelete = (_id) => {
-        axios.delete(`http://localhost:5000/deleteitem?_id=${_id}`).then(({ data }) => {
+        axios.delete(`https://server-store-beta.vercel.app/deleteitem?_id=${_id}`).then(({ data }) => {
             const { msg, type } = data
             var localToken = localStorage.getItem('localToken') || ''
-            axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+            axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
                 const { myToken, state } = data
                 if (state !== 'success') {
                     navigate('/login')
@@ -67,7 +67,7 @@ const Cart = () => {
                     name,
                     id: myID
                 })
-                axios.get(`http://localhost:5000/getmyitems?myID=${myID}`).then(({ data }) => {
+                axios.get(`https://server-store-beta.vercel.app/getmyitems?myID=${myID}`).then(({ data }) => {
                     setCartItems(data)
                 }).catch(err => console.log(err))
             })
@@ -83,7 +83,7 @@ const Cart = () => {
     useEffect(() => {
         startLoading()
         var localToken = localStorage.getItem('localToken') || ''
-        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -94,7 +94,7 @@ const Cart = () => {
                 name,
                 id: myID
             })
-            axios.get(`http://localhost:5000/getmyitems?myID=${myID}`).then(({ data }) => {
+            axios.get(`https://server-store-beta.vercel.app/getmyitems?myID=${myID}`).then(({ data }) => {
                 setCartItems(data)
             }).catch(err => console.log(err))
             endLoading()
@@ -136,7 +136,7 @@ const Cart = () => {
                                         className='me-3 my-dd'
                                         onChange={(e) => {
                                             const value = e.target.value
-                                            axios.put(`http://localhost:5000/updateitem?_id=${_id}`, { newAmount: Number(value) }).then().catch(err => console.log(err))
+                                            axios.put(`https://server-store-beta.vercel.app/updateitem?_id=${_id}`, { newAmount: Number(value) }).then().catch(err => console.log(err))
                                         }}
                                         id="model" name='model' aria-label="Floating label select example">
                                         <option value=''>amount</option>

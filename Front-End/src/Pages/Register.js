@@ -27,7 +27,7 @@ const Register = () => {
       name: signUpDetails.name.toLowerCase(),
       myID: new Date().getTime().toString()
     }
-    axios.post('http://localhost:5000/register', { ...userInfo }).then(({ data }) => {
+    axios.post('https://server-store-beta.vercel.app/register', { ...userInfo }).then(({ data }) => {
       const { msg, type, token } = data
       localStorage.setItem('localToken', token)
       showAlert({ msg, type })

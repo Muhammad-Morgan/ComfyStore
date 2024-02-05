@@ -20,7 +20,7 @@ const Login = () => {
   }
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:5000/login', { ...signInDetails }).then(({ data }) => {
+    axios.post('https://server-store-beta.vercel.app/login', { ...signInDetails }).then(({ data }) => {
       const { msg, type, token } = data
       localStorage.setItem('localToken', token)
       if (type === 'success') {

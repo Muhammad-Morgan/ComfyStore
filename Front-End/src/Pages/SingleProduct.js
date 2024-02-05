@@ -31,7 +31,7 @@ const SingleProduct = () => {
             amount: counter,
         }
         var localToken = localStorage.getItem('localToken') || ''
-        axios.post(`http://localhost:5000/additem?token=${localToken}`, { ...cartInfo }).then(({ data }) => {
+        axios.post(`https://server-store-beta.vercel.app/additem?token=${localToken}`, { ...cartInfo }).then(({ data }) => {
             const { msg, type } = data
             if (type === 'danger') {
                 showAlert({
@@ -49,7 +49,7 @@ const SingleProduct = () => {
     }
     useEffect(() => {
         startLoading()
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        axios.get('https://server-store-beta.vercel.app/auth').then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -60,7 +60,7 @@ const SingleProduct = () => {
                 name,
                 id: myID
             })
-            axios.get(`http://localhost:5000/singleproduct?_id=${id}`).then(({ data }) => {
+            axios.get(`https://server-store-beta.vercel.app/singleproduct?_id=${id}`).then(({ data }) => {
                 const {
                     name,
                     img,

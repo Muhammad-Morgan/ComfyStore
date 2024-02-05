@@ -11,7 +11,7 @@ const Auth = () => {
     useEffect(() => {
         startLoading()
         var localToken = localStorage.getItem('localToken') || ''
-        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             if (data.state !== 'success') {
                 navigate('/login')
                 endLoading()

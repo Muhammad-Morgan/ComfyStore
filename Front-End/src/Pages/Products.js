@@ -15,12 +15,12 @@ const Products = () => {
     })
     const findByCat = (category) => {
         if (category === 'all') {
-            axios.get('http://localhost:5000/getallproducts').then(({ data }) => {
+            axios.get('https://server-store-beta.vercel.app/getallproducts').then(({ data }) => {
                 setProductsList(data)
             }).catch(err => console.log(err))
         }
         else {
-            axios.get(`http://localhost:5000/searchwithcategory?category=${category}`).then(({ data }) => {
+            axios.get(`https://server-store-beta.vercel.app/searchwithcategory?category=${category}`).then(({ data }) => {
                 setProductsList(data)
             }).catch(err => console.log(err))
         }
@@ -32,14 +32,14 @@ const Products = () => {
             ...search,
             [name]: value
         })
-        axios.get(`http://localhost:5000/searchwithname?name=${value}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/searchwithname?name=${value}`).then(({ data }) => {
             setProductsList(data)
         }).catch(err => console.log(err))
     }
     useEffect(() => {
         startLoading()
         var localToken = localStorage.getItem('localToken') || ''
-        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -50,7 +50,7 @@ const Products = () => {
                 name,
                 id: myID
             })
-            axios.get('http://localhost:5000/getallproducts').then(({ data }) => {
+            axios.get('https://server-store-beta.vercel.app/getallproducts').then(({ data }) => {
                 setProductsList(data)
             }).catch(err => console.log(err))
             endLoading()
@@ -94,7 +94,7 @@ const Products = () => {
                             onChange={(e) => {
                                 const value = e.target.value
                                 // console.log(value)
-                                axios.get(`http://localhost:5000/searchwithmodel?model=${value}`,).then(({ data }) => {
+                                axios.get(`https://server-store-beta.vercel.app/searchwithmodel?model=${value}`,).then(({ data }) => {
                                     setProductsList(data)
                                 }).catch(err => console.log(err))
                             }}
@@ -112,7 +112,7 @@ const Products = () => {
                 </div>
                 <button
                     onClick={() => {
-                        axios.get('http://localhost:5000/getallproducts').then(({ data }) => {
+                        axios.get('https://server-store-beta.vercel.app/getallproducts').then(({ data }) => {
                             setProductsList(data)
                         }).catch(err => console.log(err))
                     }}

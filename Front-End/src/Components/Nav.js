@@ -9,7 +9,7 @@ const Nav = () => {
   const navigate = useNavigate()
   axios.defaults.withCredentials = true
   const handleLogOut = () => {
-    axios.get('http://localhost:5000/logout').then(({ data }) => {
+    axios.get('https://server-store-beta.vercel.app/logout').then(({ data }) => {
       const { msg, type } = data
       if (type === 'success') {
         localStorage.removeItem('localToken')
