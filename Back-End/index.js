@@ -3,13 +3,10 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
-const cookieParser = require('cookie-parser')
-const jwtDecode = require('jwt-decode')
 
 const Users = require('./Models/usersModel')
 const productsCollection = require('./Models/products')
 const Cart = require('./Models/cart')
-// const products = require('./data')
 const app = express()
 
 app.use(express.json())
@@ -18,29 +15,23 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }))
-app.use(cookieParser())
-const verifyUser = (req, res, next) => {
-    const token = req.cookies.token
-    if (!token) {
-        return res.json("No token")
-    }
-    else {
-        jwt.verify(token, 'thesecretmessageofuser', (err, decode) => {
-            if (err) return res.json('wrong token')
-            next()
-        })
-    }
-}
+
 mongoose.connect('mongodb+srv://muhammad:helloworld123@jobster.r7jsbjp.mongodb.net/comfy?retryWrites=true&w=majority')
 mongoose.connection.once('open', () => console.log('Connected to MongoDB'))
 app.get('/', (req, res) => res.send('Hi there...'))
 
-app.get('/auth', verifyUser, (req, res) => {
-    const token = req.cookies.token
-    return res.json({ myToken: token, state: 'success' })
+app.get('/auth', (req, res) => {
+    const {localToken} = req.query
+    if(!localToken){
+     res.json('No tokens')
+    }else{
+     jwt.verify(localToken, 'thesecretmessageofuser', (err, decode) => {
+    if (err) return res.json('wrong token')
+    return res.json({ myToken: localToken, state: 'success' })
+    })
+    }
 })
 app.get('/logout', (req, res) => {
-    res.clearCookie('token')
     res.json({ msg: 'Logged Out', type: 'success' })
 })
 app.get('/getallproducts', (req, res) => {
@@ -51,7 +42,6 @@ app.get('/searchwithname', (req, res) => {
     productsCollection.find().then((result) => {
         var newRes = result.filter((item) => item.name.includes(name))
         res.json(newRes)
-        // console.log(newRes)
     })
 })
 app.get('/searchwithcategory', (req, res) => {
@@ -88,7 +78,7 @@ app.put('/updateitem', (req, res) => {
     }).catch(err => console.log(err))
 })
 app.post('/additem', (req, res) => {
-    const token = req.cookies.token
+    
     if (!token) {
         res.json({ msg: 'session expired', type: 'danger' })
     }
@@ -123,14 +113,16 @@ app.post('/register', (req, res) => {
                     name,
                     email,
                     password: hash
-                }).then(() => res.json({
-                    msg: 'Registered Successfully',
-                    type: 'success'
-                })).catch(error => console.log(error))
+                }).then(() => {
+                    const token = jwt.sign({ myID, name }, 'thesecretmessageofuser', { expiresIn: '1h' })
+                    res.json({
+                        token,
+                        msg: 'registered successfully',
+                        type: 'success'
+                    })
+                }).catch(error => console.log(error))
             });
         });
-        const token = jwt.sign({ myID, name }, 'thesecretmessageofuser', { expiresIn: '1h' })
-        res.cookie('token', token, { maxAge: 1 * 60 * 60 * 1000 })
     } else {
         res.json({
             msg: 'Enter your credentials',
@@ -149,8 +141,8 @@ app.post('/login', (req, res) => {
                 bcrypt.compare(password, result.password).then((resultCondition) => {
                     if (resultCondition === true) {
                         const token = jwt.sign({ myID, name }, 'thesecretmessageofuser', { expiresIn: '1h' })
-                        res.cookie('token', token, { maxAge: 1 * 60 * 60 * 1000 })
                         res.json({
+                            token,
                             msg: 'Logged In Successfully',
                             type: 'success'
                         })
@@ -175,8 +167,8 @@ app.delete('/deleteitem', (req, res) => {
     const { _id } = req.query
     Cart.findByIdAndDelete(_id).then(() => res.json({ msg: 'item deleted', type: 'info' })).catch(err => console.log(err))
 })
-app.delete('/clearcart',(req,res)=>{
-    const {myID}=req.query
-    Cart.deleteMany({myID}).then(()=>res.json('cleared !')).catch(err=>console.log(err))
+app.delete('/clearcart', (req, res) => {
+    const { myID } = req.query
+    Cart.deleteMany({ myID }).then(() => res.json('cleared !')).catch(err => console.log(err))
 })
 app.listen(5000, () => console.log('Listening to port 5000'))
