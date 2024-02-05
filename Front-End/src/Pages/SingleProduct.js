@@ -49,7 +49,8 @@ const SingleProduct = () => {
     }
     useEffect(() => {
         startLoading()
-        axios.get('https://server-store-beta.vercel.app/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`https://server-store-beta.vercel.app/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')

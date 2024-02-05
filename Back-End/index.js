@@ -78,7 +78,7 @@ app.put('/updateitem', (req, res) => {
     }).catch(err => console.log(err))
 })
 app.post('/additem', (req, res) => {
-    
+    const {token} = req.query
     if (!token) {
         res.json({ msg: 'session expired', type: 'danger' })
     }
