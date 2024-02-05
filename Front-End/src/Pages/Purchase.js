@@ -127,7 +127,6 @@ const Purchase = () => {
                             className='submit-bt'>Purchase !</button>
                         <Link to='/cart'
                             style={{ width: '40%', textDecoration: 'none' }}
-                            onClick={handleSubmit}
                             className='my-order-btn text-center'>Go to Cart</Link>
                     </div>
                 </section>
