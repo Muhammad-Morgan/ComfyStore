@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import HorizontalNav from '../Components/HorizontalNav'
 import axios from 'axios'
-import { jwtDecode } from 'jwt-decode'
-import { Link } from 'react-router-dom'
 import { useGlobalContext } from '../Utilities/Context'
 const Home = () => {
-  const { userInfo, updateInfo } = useGlobalContext()
+  const { userInfo } = useGlobalContext()
   const [condition, setCondition] = useState(false)
   useEffect(() => {
-    axios.get('http://localhost:5000/auth').then(({ data }) => {
-      const { state, myToken } = data
+    var localToken = localStorage.getItem('localToken') || ''
+    axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
+      const { state } = data
       if (state === 'success') {
         setCondition(true)
       }

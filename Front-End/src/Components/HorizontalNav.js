@@ -7,10 +7,11 @@ import { jwtDecode } from 'jwt-decode'
 
 const HorizontalNav = () => {
     const navigate = useNavigate()
-    const { showAlert, loading, startLoading, endLoading, userInfo, updateInfo } = useGlobalContext()
+    const { userInfo, updateInfo } = useGlobalContext()
 
     useEffect(() => {
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')

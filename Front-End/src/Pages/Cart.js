@@ -35,7 +35,8 @@ const Cart = () => {
     }
     const handleClick = (e) => {
         e.preventDefault()
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -54,7 +55,8 @@ const Cart = () => {
     const handleDelete = (_id) => {
         axios.delete(`http://localhost:5000/deleteitem?_id=${_id}`).then(({ data }) => {
             const { msg, type } = data
-            axios.get('http://localhost:5000/auth').then(({ data }) => {
+            var localToken = localStorage.getItem('localToken') || ''
+            axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
                 const { myToken, state } = data
                 if (state !== 'success') {
                     navigate('/login')
@@ -75,12 +77,13 @@ const Cart = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setCartItems([])
-        showAlert({msg:'proceed to the payment',type:'info'})
+        showAlert({ msg: 'proceed to the payment', type: 'info' })
         navigate('/purchase')
     }
     useEffect(() => {
         startLoading()
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')
@@ -162,8 +165,8 @@ const Cart = () => {
                             )
                         })}
                     </section>
-                    <section style={{height: '100%'}} className='col'>
-                        <div style={{height: '100%'}} className='d-flex flex-column justify-content-between'>
+                    <section style={{ height: '100%' }} className='col'>
+                        <div style={{ height: '100%' }} className='d-flex flex-column justify-content-between'>
                             <table className="table table-secondary rounded">
                                 <thead>
                                     <tr>
@@ -190,7 +193,7 @@ const Cart = () => {
                                         <td>Final Cost</td>
                                         <td></td>
                                         <td></td>
-                                        <td>{parseFloat((cost.totalCost+9.88).toFixed(2))}$</td>
+                                        <td>{parseFloat((cost.totalCost + 9.88).toFixed(2))}$</td>
                                     </tr>
                                 </tbody>
                             </table>

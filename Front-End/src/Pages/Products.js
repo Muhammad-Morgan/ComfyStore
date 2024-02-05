@@ -38,7 +38,8 @@ const Products = () => {
     }
     useEffect(() => {
         startLoading()
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')

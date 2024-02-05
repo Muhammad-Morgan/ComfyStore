@@ -5,12 +5,13 @@ import { useGlobalContext } from '../Utilities/Context'
 import { jwtDecode } from 'jwt-decode'
 import Loading from '../Components/Loading'
 const Auth = () => {
-    const { showAlert, userStatus, loading, startLoading, endLoading, updateInfo } = useGlobalContext()
+    const {  userStatus, loading, startLoading, endLoading, updateInfo } = useGlobalContext()
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
     useEffect(() => {
         startLoading()
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             if (data.state !== 'success') {
                 navigate('/login')
                 endLoading()

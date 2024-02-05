@@ -30,7 +30,8 @@ const SingleProduct = () => {
             img: myProduct.img,
             amount: counter,
         }
-        axios.post('http://localhost:5000/additem', { ...cartInfo }).then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.post(`http://localhost:5000/additem?token=${localToken}`, { ...cartInfo }).then(({ data }) => {
             const { msg, type } = data
             if (type === 'danger') {
                 showAlert({

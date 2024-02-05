@@ -8,7 +8,7 @@ import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 const Purchase = () => {
     const navigate = useNavigate()
-    const { showAlert, loading, startLoading, endLoading, userInfo, updateInfo } = useGlobalContext()
+    const { showAlert, userInfo, updateInfo } = useGlobalContext()
     const [card, setCard] = useState(false)
     const [cash, setCash] = useState(false)
     const handleSubmit = (e) => {
@@ -45,7 +45,8 @@ const Purchase = () => {
         }
     }
     useEffect(() => {
-        axios.get('http://localhost:5000/auth').then(({ data }) => {
+        var localToken = localStorage.getItem('localToken') || ''
+        axios.get(`http://localhost:5000/auth?localToken=${localToken}`).then(({ data }) => {
             const { myToken, state } = data
             if (state !== 'success') {
                 navigate('/login')

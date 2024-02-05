@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQ } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useGlobalContext } from '../Utilities/Context'
 import axios from 'axios'
@@ -13,7 +11,7 @@ const Register = () => {
     email: '',
     password: ''
   })
-  axios.defaults.withCredentials=true
+  axios.defaults.withCredentials = true
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -30,7 +28,8 @@ const Register = () => {
       myID: new Date().getTime().toString()
     }
     axios.post('http://localhost:5000/register', { ...userInfo }).then(({ data }) => {
-      const { msg, type } = data
+      const { msg, type, token } = data
+      localStorage.setItem('localToken', token)
       showAlert({ msg, type })
       setSignUpDetails({
         ...signUpDetails,
@@ -47,11 +46,11 @@ const Register = () => {
         <div className='col d-none d-md-block'>
           <h1 className='fs-1 mb-5'>Your One Stop Shop</h1>
           <p className='fs-4 mb-4'>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at sed omnis corporis doloremque possimus velit! Repudiandae nisi odit, aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis alias?
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at sed omnis corporis doloremque possimus velit! Repudiandae nisi odit, aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis alias?
           </p>
-          <p 
-          style={{color:'var(--primary-color-2)'}}
-          className='fs-5 mb-2'>Create an account to check our latest products !</p>
+          <p
+            style={{ color: 'var(--primary-color-2)' }}
+            className='fs-5 mb-2'>Create an account to check our latest products !</p>
         </div>
         <div className='col d-flex justify-content align-items-center'>
           <div className="card" style={{
@@ -99,8 +98,8 @@ const Register = () => {
                   className="btn-cstm1 mt-4">Register</button>
               </div>
               <p className="mt-4 text-center">Already a member? <Link
-              style={{textDecoration: 'none'}}
-              to="/login">Login</Link></p>
+                style={{ textDecoration: 'none' }}
+                to="/login">Login</Link></p>
             </form>
           </div>
         </div>

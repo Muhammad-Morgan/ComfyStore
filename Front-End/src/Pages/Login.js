@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQ } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useGlobalContext } from '../Utilities/Context'
@@ -23,7 +21,8 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault()
     axios.post('http://localhost:5000/login', { ...signInDetails }).then(({ data }) => {
-      const { msg, type } = data
+      const { msg, type, token } = data
+      localStorage.setItem('localToken', token)
       if (type === 'success') {
         showAlert({ msg, type })
         setSignInDetails({

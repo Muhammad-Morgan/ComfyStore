@@ -12,6 +12,7 @@ const Nav = () => {
     axios.get('http://localhost:5000/logout').then(({ data }) => {
       const { msg, type } = data
       if (type === 'success') {
+        localStorage.removeItem('localToken')
         updateUser()
         updateInfo({
           name: '',
